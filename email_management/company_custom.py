@@ -15,6 +15,7 @@ def create_custom_fields():
                 "options":"Company"
             }
 		]
+	}
     for doctype, fields in custom_fields.items():
         for field in fields:
             if not frappe.db.exists("Custom Field", {"dt": doctype, "fieldname": field["fieldname"]}):
