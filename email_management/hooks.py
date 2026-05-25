@@ -1,5 +1,5 @@
 app_name = "email_management"
-app_title = "A app for email Management"
+app_title = "Email Management"
 app_publisher = "akashnerella@gmail.com"
 app_description = "App for Email Management"
 app_email = "akashnerella@gmail.com"
@@ -9,6 +9,20 @@ app_license = "mit"
 # ------------------
 
 # required_apps = []
+
+# Request Hooks
+# -------------
+# Patches EmailQueueBuilder.get_outgoing_email_account once per worker process.
+# Uses reference_doctype + reference_name directly — no frappe.local context needed.
+before_request = ["email_management.utils.apply_email_patches"]
+
+# Document Events
+# ---------------
+doc_events = {
+	"Communication": {
+		"after_insert": "email_management.utils.tag_communication_company",
+	},
+}
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
