@@ -1,0 +1,112 @@
+{
+ "actions": [],
+ "autoname": "field:company",
+ "creation": "2026-05-23 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "enabled",
+  "fallback_to_global_default",
+  "outgoing_section",
+  "outgoing_email_account",
+  "sender_name",
+  "always_use_account_email_as_sender",
+  "incoming_section",
+  "incoming_email_account",
+  "append_emails_to"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Company",
+   "options": "Company",
+   "reqd": 1,
+   "search_index": 1
+  },
+  {
+   "default": "1",
+   "fieldname": "enabled",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enabled"
+  },
+  {
+   "default": "1",
+   "description": "If no email account is configured for this company, fall back to Frappe’s global default",
+   "fieldname": "fallback_to_global_default",
+   "fieldtype": "Check",
+   "label": "Fallback to Global Default"
+  },
+  {
+   "fieldname": "outgoing_section",
+   "fieldtype": "Section Break",
+   "label": "Outgoing (SMTP)"
+  },
+  {
+   "fieldname": "outgoing_email_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Outgoing Email Account",
+   "options": "Email Account"
+  },
+  {
+   "fieldname": "sender_name",
+   "fieldtype": "Data",
+   "label": "Sender Name",
+   "description": "Override the sender display name for outgoing emails from this company"
+  },
+  {
+   "default": "0",
+   "fieldname": "always_use_account_email_as_sender",
+   "fieldtype": "Check",
+   "label": "Always Use Account Email as Sender"
+  },
+  {
+   "fieldname": "incoming_section",
+   "fieldtype": "Section Break",
+   "label": "Incoming (IMAP/POP)"
+  },
+  {
+   "fieldname": "incoming_email_account",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Incoming Email Account",
+   "options": "Email Account"
+  },
+  {
+   "description": "DocType to which inbound emails from this company’s inbox will be appended",
+   "fieldname": "append_emails_to",
+   "fieldtype": "Link",
+   "label": "Append Emails To",
+   "options": "DocType"
+  }
+ ],
+ "links": [],
+ "modified": "2026-05-23 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Email Management",
+ "name": "Company Email Account",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
