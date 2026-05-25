@@ -15,7 +15,9 @@ app_license = "mit"
 # Patches EmailQueueBuilder.get_outgoing_email_account once per worker process.
 # Uses reference_doctype + reference_name directly — no frappe.local context needed.
 before_request = ["email_management.utils.apply_email_patches"]
-
+after_install = "email_management.company_custom.create_custom_fields"
+after_migrate = "email_management.company_custom.create_custom_fields"
+before_uninstall = "email_management.company_custom.delete_custom_fields"
 # Document Events
 # ---------------
 doc_events = {
