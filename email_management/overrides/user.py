@@ -6,8 +6,10 @@ from frappe.core.doctype.user.user import User
 class MultiCompanyUser(User):
 	def send_welcome_mail_to_user(self):
 		from frappe.utils import get_url
+		from frappe.core.doctype.user.user import User as _BaseUser
 
-		link = self.reset_password()
+		# Call reset_password via the base class to avoid any MRO attribute-lookup issue
+		link = _BaseUser.reset_password(self)
 
 		# Company on the user form takes priority over the global welcome_email hook
 		# (ERPNext's hook always returns get_default_company(), ignoring the user's company)
