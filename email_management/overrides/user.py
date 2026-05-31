@@ -5,14 +5,18 @@ from frappe.core.doctype.user.user import User
 
 class MultiCompanyUser(User):
 	def send_welcome_mail_to_user(self):
-		from frappe.utils import get_url
-		from frappe.core.doctype.user.user import User as _BaseUser
+		from frappe.utils import get_url, now_datetime
+		from frappe.utils.data import sha256_hash
 
-		# Call reset_password via the base class to avoid any MRO attribute-lookup issue
-		link = _BaseUser.reset_password(self)
+		# Inline reset_password logic — avoids MRO/class-loading issues in production
+		# where frappe.core.doctype.user.user.User.reset_password is not accessible
+		key = frappe.generate_hash()
+		self.db_set("reset_password_key", sha256_hash(key))
+		self.db_set("last_reset_password_key_generated_on", now_datetime())
+		link = get_url("/update-password?key=" + key, allow_header_override=False)
 
-		# Company on the user form takes priority over the global welcome_email hook
-		# (ERPNext's hook always returns get_default_company(), ignoring the user's company)
+		# Company on the user form takes priority over the global welcome_email hook.
+		# ERPNext's hook always returns get_default_company(), ignoring the user's company.
 		company_name = getattr(self, "company", None)
 		if company_name:
 			subject = _("Welcome to {0}").format(company_name)
